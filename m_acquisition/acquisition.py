@@ -4,9 +4,6 @@ import numpy as np
 
 # To connect with daba base
 from sqlalchemy import create_engine
-from sqlalchemy import exc
-from sqlalchemy import event
-from sqlalchemy import select
 
 # Create connection
 sqlitedb_path = './data/raw/emiliopatio.db'
