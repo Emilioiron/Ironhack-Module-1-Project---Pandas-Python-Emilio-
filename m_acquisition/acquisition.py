@@ -30,19 +30,19 @@ def acquire(path):
     df_merge_personal_and_business = pd.merge(personal, business, on='id')
     df_all = pd.merge(df_merge_personal_and_business, rank, on='id')
     return df_all
-df_all = acquire(path)
+#df_all = acquire(path)
 
 # Save all tables to CSV file
-def save_table(df):
-    df_all.to_csv('./data/processed/df_all.csv')
-    return
+def save_table(df,file_name):
+    df.to_csv('./data/processed/{}.csv'.format(file_name))
+
 # hasta aquí meterlo en un adquisition.py
 
-def acquisition(path):
+"""def acquisition(path):
     df_all = acquire(path)
     save_table(df_all)
     return df_all
-df_all = acquisition(path)
+df_all = acquisition(path)"""
 
 
 

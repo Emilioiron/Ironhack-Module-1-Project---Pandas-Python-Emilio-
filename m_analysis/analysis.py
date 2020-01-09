@@ -77,25 +77,33 @@ def replace_text(df):
     return data_new2
 data_new2 = replace_text(data_new1)
 
-def auxiliar_df(df):
-    new = df['Name'].str.split(' ', n = 1, expand = True)
-    return new
-new = auxiliar_df(data_new2)
+##################################################################
 
-def split_column(df,new):
+def split_column(data_new2):
+    # new data frame with split value columns
+    new = data_new2['Name'].str.split(' ', n=1, expand=True)
+
     # making separate last name column from new data frame
-    df['lastName']= new[1]
+    # data_new['lastName']= new[1]
     # Dropping old Name columns
-    df.drop(columns =['Name'], inplace = True)
-    data_new3 = df
-    return data_new3
-data_new3 = split_column(data_new2,)
+    new.drop(columns=[0], inplace=True)
+    # new[1] = new.rename['lastName']
+    new.rename(columns={1: 'lastName'}, inplace=True)
+    return new
+new = split_column(data_new2)
+
+def join(df1,df2):
+    data_new_p = df1.join(df2)
+    data_new_p.drop(columns =['Name'], inplace = True)
+    #df_final = df.drop_duplicates(subset='lastName', keep='first')
+    return data_new_p
+data_new_p = join(data_new2, new)
 
 def lower_text(df):
     df['lastName'] = df['lastName'].apply(lambda x: x.lower())
     data_new4 = df
     return data_new4
-data_new4 = lower_text(data_new3)
+data_new4 = lower_text(data_new_p)
 
 def change_column_type_2(df):
     df['worth 2010 in BUSD'] = df['worth 2010 in BUSD'].astype(float)
@@ -113,7 +121,7 @@ df_final = final_table(data, data_new5)
 #Save_table(df_final)
 
 def wealth_difference(df):
-    df_final['difference_19_10']= df_final['worth 2019 in BUSD']-df_final['worth 2010 in BUSD']
+    df_final['difference_19_10']= df_final['worth_2019_in_BUSD']-df_final['worth 2010 in BUSD']
     df_final_difference = df_final
     return df_final_difference
 df_final_difference = wealth_difference(df_final)
@@ -129,7 +137,9 @@ def analysis(data):
     data_new1 = delete_columns(data_new)
     data_new2 = replace_text(data_new1)
     data_new3 = split_column(data_new2)
+    new = split_column(data_new2)
     new = auxiliar_df(data_new2)
+
     data_new4 = lower_text(data_new3)
     data_new5 = change_column_type_2(data_new4)
     df_final = final_table(data, data_new5)
