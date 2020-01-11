@@ -17,32 +17,61 @@ pd.read_sql_query("SELECT * FROM sqlite_master WHERE type='table'", engine)
 # 3. Merge personal,business and rank dataframes
 # 4. Call to function
 
-path = './data/raw/emiliopatio.db'
-
 def acquire(path):
     business = pd.read_sql_query("SELECT * FROM business_info", engine)
     personal = pd.read_sql_query("SELECT * FROM personal_info", engine)
     rank = pd.read_sql_query("SELECT * FROM rank_info", engine)
-    
-    # remove null values from column "position" df range 
-    # since if it does not give warning of the type SettingwithCopyWarning
     rank = rank.dropna()
     df_merge_personal_and_business = pd.merge(personal, business, on='id')
     df_all = pd.merge(df_merge_personal_and_business, rank, on='id')
     return df_all
-#df_all = acquire(path)
 
-# Save all tables to CSV file
 def save_table(df,file_name):
     df.to_csv('./data/processed/{}.csv'.format(file_name))
 
-# hasta aquí meterlo en un adquisition.py
+def adquire_new_df(url):
+    dfs = pd.read_html(url)
+    data_new = dfs[11]
+    data_new.to_csv('./data/processed/data_1_new_to_process.csv')
+    return data_new
 
-"""def acquisition(path):
-    df_all = acquire(path)
-    save_table(df_all)
-    return df_all
-df_all = acquisition(path)"""
+
+"""def adquire_new_df(url, year):
+    dfs = pd.read_html(url)
+
+
+    if year == 2010:
+        data_new = dfs[11]
+
+    elif year == 2011:
+        data_new = dfs[10]
+
+    elif year == 2012:
+        data_new = dfs[9]
+
+    elif year == 2013:
+        data_new = dfs[8]
+
+    elif year == 2014:
+        data_new = dfs[7]
+
+    elif year == 2015:
+        data_new = dfs[6]
+
+    elif year == 2016:
+        data_new = dfs[5]
+
+    elif year == 2017:
+        data_new = dfs[4]
+
+    else:
+        raise ValueError('Value not admited')"""
+
+"""data_new.to_csv('./data/processed/data_1_new_to_process.csv')"""
+
+
+
+
 
 
 
