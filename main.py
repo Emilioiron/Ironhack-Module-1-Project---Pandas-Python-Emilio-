@@ -14,8 +14,8 @@ title = input('title:')
 
 if __name__ == '__main__':
     print('Ejecutando como programa principal')
+    # To eliminate warning write: python -W ignore main.py
     df_all = acq.acquire(path)                       ######## acquisition df_all
-    """data_new = acq.adquire_new_df(url)"""
     data_new = acq.adquire_new_df(url, year)
     acq.save_table(df_all, 'df_all')
     df_2 = wr.delete_columns_1(df_all)               ######## wrangling
@@ -32,6 +32,6 @@ if __name__ == '__main__':
                                                          ######### Reporting
     barchart = rp.visualize(df_final, title)
     rp.save_barchart(barchart, title)
-    print('¡El pipeline fue completado con exito!')
+    print('The pipeline was successfully completed!')
 
 
