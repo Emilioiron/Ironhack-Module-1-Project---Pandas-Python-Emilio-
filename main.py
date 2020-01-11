@@ -15,7 +15,8 @@ title = input('title:')
 if __name__ == '__main__':
     print('Ejecutando como programa principal')
     df_all = acq.acquire(path)                       ######## acquisition df_all
-    data_new = acq.adquire_new_df(url)
+    """data_new = acq.adquire_new_df(url)"""
+    data_new = acq.adquire_new_df(url, year)
     acq.save_table(df_all, 'df_all')
     df_2 = wr.delete_columns_1(df_all)               ######## wrangling
     df_3 = wr.replace_text(df_2)
@@ -23,7 +24,6 @@ if __name__ == '__main__':
     data = wr.change_column_type(df_4)
     wr.save_table_1(data)
                                                         ###### acquisition df_final
-    """data_new = wr.adquire_new_df(url)"""
     data_aux = wr.delete_columns_2(data_new)
     df_final = wr.final_table(data, data_aux)
     wr.save_table_2(df_final)
@@ -31,6 +31,7 @@ if __name__ == '__main__':
     df_final_2 = an.wealth_difference(df_final)
                                                          ######### Reporting
     barchart = rp.visualize(df_final, title)
-    rp.save_barchart(barchart)
+    rp.save_barchart(barchart, title)
+    print('¡El pipeline fue completado con exito!')
 
 

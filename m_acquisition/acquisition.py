@@ -29,45 +29,55 @@ def acquire(path):
 def save_table(df,file_name):
     df.to_csv('./data/processed/{}.csv'.format(file_name))
 
-def adquire_new_df(url):
+
+def adquire_new_df(url, year):
     dfs = pd.read_html(url)
-    data_new = dfs[11]
-    data_new.to_csv('./data/processed/data_1_new_to_process.csv')
-    return data_new
-
-
-"""def adquire_new_df(url, year):
-    dfs = pd.read_html(url)
-
-
     if year == 2010:
         data_new = dfs[11]
+        return data_new
 
     elif year == 2011:
         data_new = dfs[10]
-
+        return data_new
     elif year == 2012:
         data_new = dfs[9]
-
+        return data_new
     elif year == 2013:
         data_new = dfs[8]
-
+        return data_new
     elif year == 2014:
         data_new = dfs[7]
-
+        return data_new
     elif year == 2015:
         data_new = dfs[6]
-
+        return data_new
     elif year == 2016:
         data_new = dfs[5]
-
+        return data_new
     elif year == 2017:
         data_new = dfs[4]
-
+        return data_new
     else:
-        raise ValueError('Value not admited')"""
+        raise ValueError('Value not admited')
 
-"""data_new.to_csv('./data/processed/data_1_new_to_process.csv')"""
+
+
+
+
+
+
+
+
+
+
+#################################################
+
+
+"""def adquire_new_df(url):
+    dfs = pd.read_html(url)
+    data_new = dfs[11]
+    data_new.to_csv('./data/processed/data_1_new_to_process.csv')
+    return data_new"""
 
 
 
